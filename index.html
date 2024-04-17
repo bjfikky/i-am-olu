@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question and Answer</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Additional custom styling */
+    .answer {
+      display: none;
+    }
+  </style>
+</head>
+<body class="container mt-5">
+  <h1 class="mb-4">Question and Answer</h1>
+
+  <div class="card p-3 mb-3">
+    <div class="card-body">
+      <h5 class="card-title" id="question"></h5>
+      <button class="btn btn-primary" onclick="revealAnswer()">Reveal Answer</button>
+      <div class="answer mt-3" id="answer"></div>
+      <div class="spinner-border text-primary mt-3" role="status" id="loading" style="display: none;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Array of objects containing questions and answers
+    var questionsAndAnswers = [
+      {
+        question: "What is the capital of France?",
+        answer: "Paris"
+      },
+      {
+        question: "What is the largest mammal?",
+        answer: "Blue Whale"
+      },
+      {
+        question: "Who wrote 'To Kill a Mockingbird'?",
+        answer: "Harper Lee"
+      }
+      // Add more questions and answers as needed
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function displayQuestion() {
+        var currentQuestion = questionsAndAnswers[currentQuestionIndex];
+        var questionElement = document.getElementById("question");
+        var answerElement = document.getElementById("answer");
+        var loadingElement = document.getElementById("loading");
+
+        questionElement.innerText = currentQuestion.question;
+        answerElement.innerText = currentQuestion.answer;
+        answerElement.style.display = "none";
+        loadingElement.style.display = "none";
+    }
+
+    function revealAnswer() {
+        currentQuestionIndex++;
+        var answerElement = document.getElementById("answer");
+        var loadingElement = document.getElementById("loading");
+
+        answerElement.style.display = "block";
+        if (currentQuestionIndex < questionsAndAnswers.length) {
+            loadingElement.style.display = "block";
+        }
+
+        setTimeout(function() {
+        loadingElement.style.display = "none";
+        if (currentQuestionIndex < questionsAndAnswers.length) {
+            displayQuestion();
+        } else {
+            alert("No more questions!");
+        }
+        }, 1000);
+    }
+
+    // Initially display the first question
+    displayQuestion();
+  </script>
+
+  <!-- Bootstrap JS (optional, if you need Bootstrap JavaScript features) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
